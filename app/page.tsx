@@ -25,6 +25,10 @@ export default function Home() {
     return "new york"
   })
 
+  let prevSearch = ""
+  let prevLat = ""
+  let prevLon = ""
+
   useEffect(() => {
     // Fetch the latitude and longitude from geocoding api 
     const getCoordinates = async (query: string) => {
@@ -51,8 +55,13 @@ export default function Home() {
         setCity((prev) => ({ ...prev, name: "Error ocured while trying to download city info."}))
       }
     }
-    getCoordinates(search)
-    localStorage.setItem("city", search)
+
+    // Some form of cache, if previous search isn't equal to current search then do your job
+    if (prevSearch !== search) {
+      prevSearch = search
+      getCoordinates(search)
+      localStorage.setItem("city", search)
+    }
   }, [search])
 
   useEffect(() => {
@@ -84,8 +93,13 @@ export default function Home() {
         setCity((prev) => ({ ...prev, name: "Error ocured while trying to download weather info."}))
       }
     }
-    getCurrentWeather(city.lat, city.lon)
-    
+
+    // Another cache
+    if (prevLat !== city.lat || prevLon !== city.lon) {
+      getCurrentWeather(city.lat, city.lon)
+      prevLat = city.lat
+      prevLon = city.lon
+    }
   }, [city.lat, city.lon])
 
   // Get the weather code and return weather icon to load
