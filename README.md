@@ -10,7 +10,7 @@ Project made to my portfolio and to train my proggraming skills. It calls [geoco
 - Tailwind CSS v4
 - Eslint
 
-### Try it out [here]()!
+### Try it out [here](https://simple-weather-app-w5s2-git-main-krecior4s-projects.vercel.app/)!
 
 ## Demo
 ![Screenshot](public/screenshot.png)
